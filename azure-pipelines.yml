@@ -4,7 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
-- develop
+ branches:
+    include:
+    - develop
 
 pool:
   vmImage: ubuntu-latest
@@ -35,3 +37,10 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install pytest pytest-azurepipelines
+    pytest
+  displayName: 'Run pytest tests'
